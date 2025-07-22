@@ -1,0 +1,18 @@
+# Ignore Visual Studio temporary files, build results, and more
+.vs/
+*.user
+*.suo
+*.cache
+*.log
+*.dbmdl
+*.bak
+*.vsidx
+*.vscode/
+
+# Ignore build output
+bin/
+obj/
+
+# Environment-specific files
+.env
+appsettings.Development.json

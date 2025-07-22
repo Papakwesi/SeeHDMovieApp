@@ -1,0 +1,60 @@
+﻿@model WhileList
+
+@{
+    ViewData["Title"] = "Movie Details";
+}
+
+<form method="post">
+    <input hidden asp-for="MoviesId" />
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card shadow-lg border-0">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@Model.Movies.ImageUrl" alt="@Model.Movies.Title" class="img-fluid rounded-start" style="height:100%; object-fit:cover;" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h3 class="card-title text-primary fw-bold">@Model.Movies.Title</h3>
+                                <p class="card-text text-muted">@Model.Movies.Description</p>
+
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item"><strong>Release Date:</strong> @Model.Movies.ReleaseDate.ToShortDateString()</li>
+                                    <li class="list-group-item"><strong>Category:</strong> @Model.Movies.Category?.Name</li>
+                                    <li class="list-group-item"><strong>Cover Type:</strong> @Model.Movies.CoverType?.Name</li>
+                                    <li class="list-group-item"><strong>Rating:</strong> @Model.Movies.Rating/5</li>
+                                </ul>
+                                @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                                {
+                                    <div class="row mb-4">
+                                        <div class="col-md-3 d-flex align-items-center">
+                                            <h5 class="text-primary mb-0">My WhileList</h5>
+                                        </div>
+                                        <div class="col-md-9">
+                                            @if (Model.IsAdded)
+                                            {
+                                                <span class="text-success fw-bold">✔️ Added</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger fw-bold">❌ Not added</span>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-start gap-3">
+                                        <button type="submit" name="action" value="add" class="btn btn-primary">➕ Add to WhileList</button>
+                                        <a asp-action="WhileList" asp-controller="Home" class="btn btn-success"> View my WhileList</a>
+                                    </div>
+                                }
+                                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-secondary mt-5">← Back to Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

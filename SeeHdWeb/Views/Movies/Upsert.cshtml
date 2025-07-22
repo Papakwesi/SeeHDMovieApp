@@ -1,0 +1,101 @@
+﻿@model SeeHdWeb.Models.ViewModels.MovieVM
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Movie.Id" />
+    <input type="hidden" asp-for="Movie.ImageUrl" />
+
+    <div class="row">
+        <div class="col-10">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="border p-3 mt-4 row">
+                <div class="col-12 pb-2">
+                    <h2 class="text-primary">@(Model.Movie.Id != 0 ? "Update" : "Create") Movies</h2>
+                    <hr />
+                </div>
+
+
+                <div style="width=80%" class="mb-3">
+                    <label asp-for="Movie.Title"></label>
+                    <input asp-for="Movie.Title" class="form-control">
+                    <span asp-validation-for="Movie.Title" class="text-danger"></span>
+                </div>
+                <div style="width=80%" class="mb-3">
+                    <label asp-for="Movie.Description"></label>
+                    <textarea asp-for="Movie.Description" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="Movie.Description" class="text-danger"></span>
+                </div>
+
+                <div style="width=80%" class="mb-3 col-6">
+                    <label asp-for="Movie.Genre"></label>
+                    <input asp-for="Movie.Genre" class="form-control">
+                    <span asp-validation-for="Movie.Genre" class="text-danger"></span>
+                </div>
+                <div style="width=80%" class="mb-3 col-6">
+                    <label asp-for="Movie.Rating"></label>
+                    <input asp-for="Movie.Rating" class="form-control">
+                    <span asp-validation-for="Movie.Rating" class="text-danger"></span>
+                </div>
+                <div style="width=80%" class="mb-3 col-6">
+                    <label asp-for="Movie.ReleaseDate"></label>
+                    <input asp-for="Movie.ReleaseDate" class="form-control">
+                    <span asp-validation-for="Movie.ReleaseDate" class="text-danger"></span>
+                </div>
+                <div style="width=80%" class="mb-3 col-6">
+                    <label asp-for="Movie.ImageUrl"></label>
+                    <input type="file" id="uploadBox" name="file" class="form-control">
+                </div>
+
+                <div style="width=80%" class="mb-3 col-6">
+                    <label asp-for="Movie.CategoryId"></label>
+                    <select asp-for="Movie.CategoryId" asp-items="Model.CategoryList" class="form-select">
+                        <option disabled selected>--Select Category--</option>
+                    </select>
+                    <span asp-validation-for="Movie.CategoryId" class="text-danger"></span>
+                </div>
+
+                <div style="width=80%" class="mb-3 col-6">
+                    <label asp-for="Movie.CoverTypeId"></label>
+                    <select asp-for="Movie.CoverTypeId" asp-items="Model.CoverTypeList" class="form-select">
+                        <option disabled selected>--Select Cover Type--</option>
+                    </select>
+                    <span asp-validation-for="Movie.CoverTypeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-5 col-12">
+                @if (Model.Movie.Id != 0)
+                {
+                    <button asp-controller="Movies" asp-action="Upsert" class="btn btn-primary" type="submit" style="width:150px">Update</button>
+                }
+                else
+                {
+                    <button class="btn btn-primary" type="submit" onclick="return ValidateInput()" style="width:150px">Create</button>
+
+                }
+                <a asp-controller="Movies" asp-action="Index" class="btn btn-primary" style="width:180px">Back to list</a>
+            </div>
+        </div>
+        <div class="col-2 pt-5">
+            <img src="@Model.Movie.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #0000 " />
+        </div>
+    </div>  
+</form>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        function ValidateInput(){
+            if(document.getElementById("uploadBox").value=="")
+            {
+                 Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: "Please upload an Image!",
+                    });
+                    return false
+            }
+            return true
+        }
+    </script>
+}

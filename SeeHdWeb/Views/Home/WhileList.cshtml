@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SeeHdWeb.Models.WhileList>
+
+@{
+    ViewData["Title"] = "My WhileList";
+}
+
+<h2>My WhileList</h2>
+
+@if (!Model.Any())
+{
+    <p>No movies in your list yet.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Category</th>
+                <th>Rating</th>
+                <th>Release Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Movies.Title</td>
+                    <td>@item.Movies.Genre</td>
+                    <td>@item.Movies.Category.Name</td>
+                    <td>@item.Movies.Rating</td>
+                    <td>@item.Movies.ReleaseDate.ToShortDateString()</td>
+                    <td>
+                        <form asp-action="Delete" method="post" asp-route-id="@item.Id" onsubmit="return confirm('Remove from WhileList?');">
+                            <button type="submit" class="btn btn-danger">➖ Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h1>Movie List</h1>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-primary" asp-controller="Movies" asp-action="Upsert">
+                <i class="bi bi-plus-square"></i>
+                Create New Movie
+            </a>
+        </div>
+    </div>
+    <br />
+
+
+    <table id="myTable" class="table table-bordered table-striped" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Title
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Description
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Genre
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Release Date
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Rating
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Category
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    Cover Type
+                </th>
+                <th style="border: 1px solid #333; padding: 8px; text-align: left; background-color: #f2f2f2;">
+                    
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/js/movie.js"></script>
+}

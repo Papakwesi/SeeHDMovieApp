@@ -1,0 +1,47 @@
+﻿@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<style>
+    .card:hover {
+        transform: translateY(-5px);
+        transition: 0.3s ease;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-img-top {
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+<h2 class="mb-4 text-center">Search Results for "@ViewBag.SearchTerm"</h2>
+
+@if (!Model.Any())
+{
+    <p class="text-center text-muted">No results found for "@ViewBag.SearchTerm".</p>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var movie in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="@(string.IsNullOrEmpty(movie.poster_path) ? "/images/no-image.png" : $"https://image.tmdb.org/t/p/w500{movie.poster_path}")"
+                         class="card-img-top rounded-top"
+                         alt="@movie.title" />
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary fw-bold">@movie.title</h5>
+                        <p class="card-text text-muted mb-2">@movie.release_date</p>
+                        <p class="card-text small text-secondary">@movie.vote_average / 10</p>
+                        <div class="mt-auto">
+                            <a class="btn btn-outline-primary w-100" asp-action="Index" asp-controller="Home">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
