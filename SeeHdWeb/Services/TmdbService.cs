@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
 using SeeHdWeb.Models.TMDB; 
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
 
 public class TmdbService
 {
@@ -28,4 +28,15 @@ public class TmdbService
         var url = $"{_baseUrl}/movie/{movieId}?api_key={_apiKey}";
         return await _httpClient.GetFromJsonAsync<MovieDetail>(url);
     }
+    public async Task<string> GetTrailerKeyAsync(int movieId)
+    {
+        var url = $"{_baseUrl}/movie/{movieId}/videos?api_key={_apiKey}";
+        var videoResult = await _httpClient.GetFromJsonAsync<VideoResult>(url);
+
+        var trailer = videoResult?.results?
+            .FirstOrDefault(v => v.site == "YouTube" && v.type == "Trailer");
+
+        return trailer?.key;
+    }
+
 }

@@ -32,7 +32,7 @@ namespace SeeHdWeb.Controllers
             return View(movieList);
         }
 
-        // MovieDetails GET: Public
+        // MovieDetails get action - Public
         public IActionResult MovieDetails(int movieId)
         {
             var movie = _db.Movies
@@ -66,7 +66,7 @@ namespace SeeHdWeb.Controllers
             return View(viewModel);
         }
 
-        // MovieDetails POST: Logged-in users only
+        // MovieDetails post-action: Logged-in
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -154,7 +154,19 @@ namespace SeeHdWeb.Controllers
             ViewBag.SearchTerm = term;
             return View(results.results);
         }
+        public async Task<IActionResult> MovieDetailSearch(int id)
+        {
+            var movie = await _tmdb.GetMovieDetailAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
 
+            var trailerKey = await _tmdb.GetTrailerKeyAsync(id);
+            ViewBag.TrailerKey = trailerKey;
+
+            return View(movie);
+        }
         public IActionResult Privacy()
         {
             return View();

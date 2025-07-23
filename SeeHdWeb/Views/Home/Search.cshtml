@@ -37,7 +37,7 @@ else
                         <p class="card-text text-muted mb-2">@movie.release_date</p>
                         <p class="card-text small text-secondary">@movie.vote_average / 10</p>
                         <div class="mt-auto">
-                            <a class="btn btn-outline-primary w-100" asp-action="Index" asp-controller="Home">Back to Home</a>
+                            <a class="btn btn-outline-primary w-100" asp-action="MovieDetailSearch" asp-controller="Home" asp-route-id="@movie.id">View</a>
                         </div>
                     </div>
                 </div>
